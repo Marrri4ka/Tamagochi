@@ -1,17 +1,48 @@
 using System.Collections.Generic;
 using System;
+using System.Timers;
+
 
 namespace Tamagotchi.Models
 {
   public class Animal // class
   {
     private string _name;
+    private string _status;
     private int _food;
     private int _attention;
     private int _rest;
     private int _id;
     private bool _alive = true;
     private static List<Animal> _allAnimals = new List<Animal>{}; //list
+
+    // private static Timer timer;
+    //
+    //
+    // private static System.ElapsedEventHandler SetTimer()
+    // {
+    //   timer = new System.Timers.Timer(10000);
+    //   timer.Elapsed += OnTimedEvent;
+    //   timer.AutoReset = true;
+    //   timer.Enabled = true;
+    // }
+    //
+    // private static void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
+    // {
+    //   PassTime();
+    // }
+    //
+    //
+    public static void PassTime()
+    {
+      foreach(Animal animal in _allAnimals)
+      {
+        Random rng = new Random();
+        animal.SetFood(-rng.Next(1, 21));
+        animal.SetRest(-rng.Next(1, 21));
+        animal.SetAttention(-rng.Next(1, 21));
+      }
+    }
 
     public Animal (string name) // constructor
     {
@@ -21,6 +52,50 @@ namespace Tamagotchi.Models
       _food = 100;
       _attention = 100;
       _rest = 100;
+      SetStatus();
+      // if(timer == null)
+      // {
+      //   SetTimer();
+      // }
+    }
+
+
+
+    private void SetStatus()
+    {
+      int result = (_food + _attention + _rest) / 3;
+      if (result == 100)
+      {
+        _status = _name + " feels perfect!";
+      }
+      else if (result < 100 && result >= 80 )
+      {
+        _status = _name + " very happy!";
+      }
+      else if (result < 80 && result >= 60)
+      {
+        _status = _name + " feels happy";
+      }
+
+      else if (result < 60 && result >= 40)
+      {
+        _status = _name + " fells content";
+      }
+      else if (result < 40 && result >= 20)
+      {
+        _status = _name + " getting sick";
+      }
+
+      else if (result < 20 && result > 0)
+      {
+        _status = _name + " very sick";
+      }
+
+      else if (result <= 0)
+      {
+        _status = _name + " is dead";
+      }
+
     }
 
     public bool isLiving()
@@ -31,7 +106,12 @@ namespace Tamagotchi.Models
     public void Dies()
     {
         _alive = false;
-        //Description "your dear " + _name + " has died :("
+        _status =  _name + " has died :(";
+    }
+
+    public string GetStatus()
+    {
+      return _status;
     }
 
     public int GetFood()
@@ -52,6 +132,8 @@ namespace Tamagotchi.Models
       {
         Dies();
       }
+
+      SetStatus();
     }
 
     public int GetAttention()
@@ -71,6 +153,9 @@ namespace Tamagotchi.Models
       {
         Dies();
       }
+      SetStatus();
+
+
 
 
     }
@@ -90,6 +175,10 @@ namespace Tamagotchi.Models
       {
         Dies();
       }
+      SetStatus();
+
+
+
     }
     public string GetName()
     {

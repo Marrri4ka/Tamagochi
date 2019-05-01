@@ -45,18 +45,39 @@ namespace Tamagotchi.Controllers
     [HttpPost("/animals/timepass/")]
     public ActionResult Update()
     {
-      List<Animal> allAnimals = Animal.GetAll();
-      foreach (Animal animal in allAnimals)
-      {
-        Random rng = new Random();
-
-        animal.SetFood(-rng.Next(1, 21));
-        animal.SetRest(-rng.Next(1, 21));
-        animal.SetAttention(-rng.Next(1, 21));
-      }
+      Animal.PassTime();
       return RedirectToAction("IndexAnimal");
     }
 
+    [HttpPost("/animals/{id}/feed")]
+    public ActionResult Feed(int id)
+    {
+      Random rng = new Random();
+      Animal animal = Animal.Find(id);
+      animal.SetFood(rng.Next(5, 21));
 
+      return RedirectToAction("IndexAnimal");
+    }
+
+    [HttpPost("/animals/{id}/sleep")]
+    public ActionResult Sleep(int id)
+    {
+      Random rng = new Random();
+      Animal animal = Animal.Find(id);
+      animal.SetRest(rng.Next(5, 21));
+
+      return RedirectToAction("IndexAnimal");
+
+    }
+
+    [HttpPost("/animals/{id}/play")]
+    public ActionResult Play(int id)
+    {
+      Random rng = new Random();
+      Animal animal = Animal.Find(id);
+      animal.SetAttention(rng.Next(5, 21));
+
+      return RedirectToAction("IndexAnimal");
+    }
   }
 }

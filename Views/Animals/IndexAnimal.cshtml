@@ -14,8 +14,9 @@
   Food: @animal.GetFood()
   Rest: @animal.GetRest()
   Attention: @animal.GetAttention()
-  <form action ="/animals/@animal.GetId()/feed" method ="post">
-  <button type="submit">Feed</button>
+  Status: @animal.GetStatus()
+  <form action="/animals/@animal.GetId()/feed" method ="post">
+  <button type="submit" value="@animal.GetId()" id="id" name="id">Feed</button>
   </form>
   <form action ="/animals/@animal.GetId()/sleep" method ="post">
   <button type="submit">Sleep</button>
