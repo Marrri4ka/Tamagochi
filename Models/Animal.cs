@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System;
 using System.Timers;
+using Tamagotchi.Controllers;
 
 
 namespace Tamagotchi.Models
@@ -18,7 +19,6 @@ namespace Tamagotchi.Models
     private static List<Animal> _allAnimals = new List<Animal>{}; //list
 
     private static Timer _timer;
-
     public static void PassTime()
     {
       foreach(Animal animal in _allAnimals)
@@ -27,7 +27,7 @@ namespace Tamagotchi.Models
         animal.SetFood(-rng.Next(1, 21));
         animal.SetRest(-rng.Next(1, 21));
         animal.SetAttention(-rng.Next(1, 21));
-      }
+      }     
     }
 
     public Animal (string name) // constructor
@@ -52,6 +52,7 @@ namespace Tamagotchi.Models
 
     private static void OnTimedEvent(Object source, ElapsedEventArgs e)
     {
+      
       PassTime();
       Console.WriteLine("Tick");
 
@@ -69,40 +70,46 @@ namespace Tamagotchi.Models
       if (result == 100)
       {
         _status = _name + " feels perfect!";
-        _photo = "~/img/perfect.png";
+        _photo = "perfect.png";
       }
       else if (result < 100 && result >= 80 )
       {
         _status = _name + " is very happy!";
-        _photo = "~/img/veryhappy.png";
+        _photo = "veryhappy.png";
       }
       else if (result < 80 && result >= 60)
       {
         _status = _name + " feels happy.";
-        _photo = "~/img/happy.png";
+        _photo = "happy.png";
       }
 
       else if (result < 60 && result >= 40)
       {
         _status = _name + " feels content.";
-        _photo = "~/img/happy.png";
+        _photo = "content.png";
       }
       else if (result < 40 && result >= 20)
       {
         _status = _name + " is getting sick!";
-        _photo = "~/img/gettingsick.png";
+        _photo = "gettingsick.png";
       }
 
       else if (result < 20 && result > 0)
       {
         _status = _name + " is gravely ill!";
-        _photo = "~/img/verysick.png";
+        _photo = "verysick.png";
       }
 
       else if (result <= 0)
       {
         _status = _name + " is dead...";
-        _photo = "~/img/dead.png";
+        _photo = "dead.png";
+      }
+
+      if(!_alive)
+      {
+        _status = _name + " is dead...";
+        _photo = "dead.png";
       }
     }
 
@@ -136,12 +143,13 @@ namespace Tamagotchi.Models
         _food = 100;
       }
 
-      else if(_food <= 0)
+      SetStatus();
+      
+      if(_food <= 0)
       {
         Dies();
       }
 
-      SetStatus();
     }
 
     public int GetAttention()
@@ -157,11 +165,14 @@ namespace Tamagotchi.Models
       {
         _attention = 100;
       }
-      else if(_attention<=0)
+      
+      SetStatus();
+      
+      if(_attention<=0)
       {
         Dies();
       }
-      SetStatus();
+      
     }
 
     public int GetRest()
@@ -176,11 +187,13 @@ namespace Tamagotchi.Models
       {
         _rest = 100;
       }
+      
+      SetStatus();
+      
       if(_rest<=0)
       {
         Dies();
       }
-      SetStatus();
     }
 
     public string GetName()
