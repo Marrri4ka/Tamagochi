@@ -31,13 +31,16 @@
     {
     <div class="card" style="width: 18rem;">
       <div class="card-body">
-        <h5 class="card-title">@animal.GetName()</h5>
+        <center>
+          <h5 class="card-title">@animal.GetName()</h5>
+        </center>
         <p class="card-text">
-          <img src="~/img/@animal.GetPhoto()" />
-          Food: @animal.GetFood()
-          Rest: @animal.GetRest()
-          Attention: @animal.GetAttention()
-          Status: @animal.GetStatus()</p>
+          <img src="~/img/@animal.GetPhoto()" /><br>
+          <strong>Food:</strong> @animal.GetFood() <br>
+          <strong>Rest:</strong> @animal.GetRest() <br>
+          <strong>Attention:</strong> @animal.GetAttention() <br>
+          <strong>Status:</strong> @animal.GetStatus()
+        </p>
         <div class="row">
 
 
@@ -68,12 +71,12 @@
 
   </ul>
 
-  <button type="submit" name="button" class="btn btn-danger btn-lg btn-block"> <a href="/animals/new">Add a new animal.</a></button>
+  <button type="submit" name="button" class="btn btn-light btn-lg btn-block"> <a href="/animals/new">Add a new animal.</a></button>
   <form action="/animals/delete" method="post">
     <button class="btn btn-warning btn-lg btn-block" type="submit" name="button">Clear All Items</button>
   </form>
   <form action="animals/timepass" method="post">
-    <button type="submit" name="button" class="btn btn-success btn-lg btn-block">Pass time!</button>
+    <button type="submit" name="button" class="btn btn-dark btn-lg btn-block">Pass time!</button>
   </form>
 </body>
 
