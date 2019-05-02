@@ -27,45 +27,53 @@
     }
     @if(@Model.Count != 0)
     {
-    @foreach (Animal animal in Model)
-    {
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <center>
-          <h5 class="card-title">@animal.GetName()</h5>
-        </center>
-        <p class="card-text">
-          <img src="~/img/@animal.GetPhoto()" /><br>
-          <strong>Food:</strong> @animal.GetFood() <br>
-          <strong>Rest:</strong> @animal.GetRest() <br>
-          <strong>Attention:</strong> @animal.GetAttention() <br>
-          <strong>Status:</strong> @animal.GetStatus()
-        </p>
-        <div class="row">
 
 
-          <form action="/animals/@animal.GetId()/feed" method="post">
+    <div class="row">
 
-            <button type="submit" class="btn btn-primary btn-lg" value="@animal.GetId()" id="id" name="id">Feed</button>
-          </form>
-          <form action="/animals/@animal.GetId()/sleep" method="post">
-            <button class="btn btn-danger btn-lg" type="submit">Sleep</button>
-          </form>
-          <form action="/animals/@animal.GetId()/play" method="post">
-            <button class="btn btn-warning btn-lg" type="submit">Play</button>
-          </form>
+
+
+      @foreach (Animal animal in Model)
+      {
+      <div class="com-md-3">
+
+
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <center>
+              <h5 class="card-title">@animal.GetName()</h5>
+            </center>
+            <p class="card-text">
+              <img src="~/img/@animal.GetPhoto()" /><br>
+              <strong>Food:</strong> @animal.GetFood() <br>
+              <strong>Rest:</strong> @animal.GetRest() <br>
+              <strong>Attention:</strong> @animal.GetAttention() <br>
+              <strong>Status:</strong> @animal.GetStatus()
+            </p>
+            <div class="row">
+              <form action="/animals/@animal.GetId()/feed" method="post">
+
+                <button type="submit" class="btn btn-primary btn-lg" value="@animal.GetId()" id="id" name="id">Feed</button>
+              </form>
+              <form action="/animals/@animal.GetId()/sleep" method="post">
+                <button class="btn btn-danger btn-lg" type="submit">Sleep</button>
+              </form>
+              <form action="/animals/@animal.GetId()/play" method="post">
+                <button class="btn btn-warning btn-lg" type="submit">Play</button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
+
+
+
+
+
+
+      }
     </div>
 
-
-
-
-
-
-
-
-    }
     }
 
 
